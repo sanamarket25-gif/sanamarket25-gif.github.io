@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Appeler le client | Sana Shop</title>
+  <style>
+    :root { color-scheme: light; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #f6f5fd; color: #373975; text-align: center;
+    }
+    main { padding: 24px 16px; }
+    p { margin: 0; font-size: 17px; }
+    a {
+      display: inline-block; margin-top: 18px; padding: 16px 30px; border-radius: 999px;
+      background: #1f7a45; color: #fff; font-size: 20px; font-weight: 700; text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <p id="texte">Ouverture de l'appel…</p>
+  <a id="appel" href="#" hidden>📞 Appeler</a>
+</main>
+<script>
+  // Utilisée par le tableau des commandes : appel.html#22370000000 ouvre l'appel vers ce numéro.
+  // Le numéro est après le « # » : il reste dans le téléphone et n'est jamais envoyé au serveur.
+  (function () {
+    var chiffres = decodeURIComponent(location.hash.slice(1)).replace(/\D/g, '');
+    var texte = document.getElementById('texte');
+    var lien = document.getElementById('appel');
+    if (chiffres.length < 8) { texte.textContent = 'Numéro introuvable.'; return; }
+    if (chiffres.length === 8) chiffres = '223' + chiffres;
+    var lisible = '+' + chiffres.slice(0, 3) + ' ' + chiffres.slice(3).replace(/(\d{2})(?=\d)/g, '$1 ');
+    texte.textContent = 'Client : ' + lisible;
+    lien.href = 'tel:+' + chiffres;
+    lien.hidden = false;
+    location.href = 'tel:+' + chiffres;
+  })();
+</script>
+</body>
+</html>

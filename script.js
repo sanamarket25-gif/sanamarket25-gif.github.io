@@ -10,7 +10,7 @@ const CONFIG = {
   nomProduit: 'Sana Mix 380 ml',
   prix: 9500,                // prix de vente en FCFA (ce que paie le client)
   prixAvant: 12500,          // ancien prix, affiché barré (0 = pas de promo) : la remise en % se calcule seule
-  fraisLivraison: 0,         // frais de livraison ajoutés au total (0 = rien) (À CONFIRMER)
+  fraisLivraison: 0,         // frais de livraison ajoutés au total (0 = livraison comprise dans le prix)
   devise: 'FCFA',
   telephone: '+223 77 48 13 20', // numéro affiché sur tout le site
   whatsapp: '22377481320',   // numéro WhatsApp, chiffres seulement ('' = caché)
@@ -19,10 +19,14 @@ const CONFIG = {
   email: '',                 // adresse e-mail ('' = cachée)
   afficherAvis: false,       // true = montrer la section « avis clients »
   afficherGrossiste: false,  // true = montrer la section « vente en gros »
-  delaiLivraisonJours: 1,    // « livré dès le … » = aujourd'hui + ce nombre de jours (À CONFIRMER)
+  delaiLivraisonJours: 0,    // 0 = livraison le jour même à Bamako, 1 = le lendemain…
+  heureLimite: 18,           // commande passée après cette heure : livraison le lendemain
   livraisonLeDimanche: false,
   // Lien de votre Google Sheets (Apps Script) — voir docs/google-sheets.md
   urlGoogleSheets: 'https://script.google.com/macros/s/AKfycby0gJxM8paRmvZkfY5L-q-MY_0h8BX25BCkqjZbHsXOIQhz7NKY7wA-Qam7vJGmz8QYkQ/exec',
+  // Pixels publicitaires : collez le numéro (ID) donné par Meta et par TikTok ('' = désactivé)
+  metaPixel: '',
+  tiktokPixel: '',
 };
 
 (function () {
@@ -82,11 +86,101 @@ const CONFIG = {
 
   $$('[data-annee]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
-  const livraison = new Date();
-  livraison.setDate(livraison.getDate() + CONFIG.delaiLivraisonJours);
-  if (!CONFIG.livraisonLeDimanche && livraison.getDay() === 0) livraison.setDate(livraison.getDate() + 1);
-  const dateTxt = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(livraison);
-  $$('[data-livraison]').forEach((el) => { el.textContent = dateTxt; });
+  // Livraison : le jour même, ou le lendemain si la commande arrive après l'heure limite
+  function texteLivraison(maintenant) {
+    const d = new Date(maintenant);
+    if (d.getHours() >= CONFIG.heureLimite) d.setDate(d.getDate() + 1);
+    d.setDate(d.getDate() + CONFIG.delaiLivraisonJours);
+    if (!CONFIG.livraisonLeDimanche && d.getDay() === 0) d.setDate(d.getDate() + 1);
+    const jour = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+    const ecart = Math.round((jour(d) - jour(maintenant)) / 86400000);
+    if (ecart === 0) return 'aujourd\'hui';
+    if (ecart === 1) return 'demain';
+    return 'le ' + new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }).format(d);
+  }
+  $$('[data-livraison]').forEach((el) => { el.textContent = texteLivraison(new Date()); });
+  $$('[data-heure-limite]').forEach((el) => { el.textContent = CONFIG.heureLimite + ' h'; });
+
+  /* ---------- 1b. D'où vient le visiteur (publicité TikTok, Facebook…) ---------- */
+  // Les liens des publicités portent ?utm_source=tiktok ou ?utm_source=facebook.
+  // La provenance est gardée 7 jours dans le navigateur, puis envoyée avec la commande.
+  const NOMS_SOURCES = {
+    tiktok: 'TikTok', facebook: 'Facebook', fb: 'Facebook', instagram: 'Instagram', ig: 'Instagram',
+    messenger: 'Messenger', msg: 'Messenger', whatsapp: 'WhatsApp',
+  };
+  function sourceDepuisUrl(search, referrer) {
+    const q = new URLSearchParams(search);
+    const utm = (q.get('utm_source') || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 30);
+    if (utm) return NOMS_SOURCES[utm] || utm.charAt(0).toUpperCase() + utm.slice(1);
+    if (q.has('ttclid')) return 'TikTok';
+    if (q.has('fbclid')) return 'Facebook';
+    const ref = referrer || '';
+    if (/tiktok\./i.test(ref)) return 'TikTok';
+    if (/instagram\./i.test(ref)) return 'Instagram';
+    if (/facebook\.|\bfb\.(com|me)/i.test(ref)) return 'Facebook';
+    return '';
+  }
+  const CLE_SOURCE = 'sana-source';
+  const SEPT_JOURS = 7 * 24 * 3600 * 1000;
+  const sourceArrivee = sourceDepuisUrl(location.search, document.referrer);
+  if (sourceArrivee) {
+    try { localStorage.setItem(CLE_SOURCE, JSON.stringify({ s: sourceArrivee, t: Date.now() })); } catch (err) { /* stockage indisponible */ }
+  }
+  function sourceVisite() {
+    if (sourceArrivee) return sourceArrivee;
+    try {
+      const v = JSON.parse(localStorage.getItem(CLE_SOURCE) || 'null');
+      if (v && v.s && Date.now() - v.t < SEPT_JOURS) return v.s;
+    } catch (err) { /* stockage indisponible */ }
+    return 'Direct';
+  }
+
+  /* ---------- 1c. Pixels publicitaires (Meta et TikTok) ---------- */
+  // Actifs seulement si leur numéro est rempli dans CONFIG, et jamais sur votre PC
+  // (sauf avec ?testpixel dans l'adresse, pour les essais).
+  const pixelsAutorises = !isLocal || /[?&]testpixel\b/.test(location.search);
+  const avecMeta = Boolean(CONFIG.metaPixel) && pixelsAutorises;
+  const avecTiktok = Boolean(CONFIG.tiktokPixel) && pixelsAutorises;
+  if (avecMeta) {
+    /* Code officiel du pixel Meta */
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+      t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', CONFIG.metaPixel);
+    window.fbq('track', 'PageView');
+  }
+  if (avecTiktok) {
+    /* Code officiel du pixel TikTok */
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t; var ttq = w[t] = w[t] || [];
+      ttq.methods = ['page', 'track', 'identify', 'instances', 'debug', 'on', 'off', 'once', 'ready', 'alias', 'group', 'enableCookie', 'disableCookie', 'holdConsent', 'revokeConsent', 'grantConsent'];
+      ttq.setAndDefer = function (o, m) { o[m] = function () { o.push([m].concat(Array.prototype.slice.call(arguments, 0))); }; };
+      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.instance = function (id) { for (var e = ttq._i[id] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]); return e; };
+      ttq.load = function (id, opts) {
+        var u = 'https://analytics.tiktok.com/i18n/pixel/events.js';
+        ttq._i = ttq._i || {}; ttq._i[id] = []; ttq._i[id]._u = u; ttq._t = ttq._t || {}; ttq._t[id] = +new Date; ttq._o = ttq._o || {}; ttq._o[id] = opts || {};
+        var s = d.createElement('script'); s.type = 'text/javascript'; s.async = !0; s.src = u + '?sdkid=' + id + '&lib=' + t;
+        var f = d.getElementsByTagName('script')[0]; f.parentNode.insertBefore(s, f);
+      };
+    }(window, document, 'ttq');
+    window.ttq.load(CONFIG.tiktokPixel);
+    window.ttq.page();
+  }
+  const donneesPixel = (quantite, valeur) => ({
+    meta: { content_name: CONFIG.nomProduit, content_type: 'product', content_ids: ['sana-mix-380'], num_items: quantite, value: valeur, currency: 'XOF' },
+    tiktok: { content_id: 'sana-mix-380', content_type: 'product', content_name: CONFIG.nomProduit, quantity: quantite, price: CONFIG.prix, value: valeur, currency: 'XOF' },
+  });
+  function suivre(evenementMeta, evenementsTiktok, d) {
+    if (avecMeta && window.fbq) window.fbq('track', evenementMeta, d.meta);
+    if (avecTiktok && window.ttq) evenementsTiktok.forEach((ev) => window.ttq.track(ev, d.tiktok));
+  }
+  if (/produit\.html$/.test(location.pathname)) suivre('ViewContent', ['ViewContent'], donneesPixel(1, CONFIG.prix));
+
+  // Pour les essais sur votre PC uniquement
+  if (isLocal) window.__sanaTest = { texteLivraison, sourceDepuisUrl, sourceVisite };
 
   /* ---------- 2. Bandeaux qui défilent ---------- */
   $$('.marquee').forEach((m) => {
@@ -323,6 +417,8 @@ const CONFIG = {
   }));
   qtyInput.addEventListener('change', updateTotal);
   updateTotal();
+  // Premier clic dans le formulaire : « début de commande » pour les pixels
+  form.addEventListener('focusin', () => suivre('InitiateCheckout', ['InitiateCheckout'], donneesPixel(1, CONFIG.prix)), { once: true });
 
   // Numéro malien : 8 chiffres (on accepte aussi +223 / 00223 devant)
   const cleanPhone = (v) => v.replace(/\D/g, '').replace(/^(00223|223)/, '');
@@ -371,6 +467,7 @@ const CONFIG = {
       total: total(),
       message: form.elements.message.value.trim(),
       page: location.pathname.split('/').pop() || 'index.html',
+      source: sourceVisite(),
     };
 
     submitBtn.disabled = true;
@@ -390,6 +487,7 @@ const CONFIG = {
         errorBox.classList.add('is-visible');
         return;
       }
+      suivre('Purchase', ['PlaceAnOrder', 'CompletePayment'], donneesPixel(q, commande.total));
     } else {
       console.warn('[Sana Shop] Mode test : CONFIG.urlGoogleSheets est vide, la commande n\'est envoyée nulle part.', commande);
     }

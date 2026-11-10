@@ -160,7 +160,7 @@
 
   <!-- Bande promo (version fine) -->
   <section class="sale-band sale-band--slim" aria-label="Promotion">
-    <p class="sale-band__sub"><b data-remise>-24&nbsp;%</b> cette semaine <span>|</span> Livraison partout au Mali <span>|</span> Paiement à la livraison à Bamako</p>
+    <p class="sale-band__sub"><b data-remise>-24&nbsp;%</b> prix de lancement <span>|</span> Livraison partout au Mali <span>|</span> Paiement à la livraison à Bamako</p>
     <svg class="sale-band__wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 26C180 6 360 46 540 30S900 4 1080 24s270 22 360 10V60H0z" fill="#22c3d0"/><path d="M0 40c200-18 380 16 560 2s380-24 560-6 240 12 320 4V60H0z" fill="#139cab" opacity=".45"/></svg>
   </section>
 
@@ -219,8 +219,8 @@
 
       <a class="btn btn--lg" href="#commande">Commander – <span data-prix>9 500 FCFA</span></a>
 
-      <!-- La date est calculée toute seule (voir CONFIG.delaiLivraisonJours dans script.js) -->
-      <p class="ship-line">Commandez maintenant<span>livraison à Bamako dès le <span data-livraison>jeudi 6 novembre</span></span></p>
+      <!-- « aujourd'hui », « demain » ou une date : calculé tout seul (CONFIG.delaiLivraisonJours et CONFIG.heureLimite dans script.js) -->
+      <p class="ship-line">Commandez maintenant<span>livraison à Bamako <span data-livraison>aujourd'hui</span></span></p>
 
       <p><span class="cod-badge"><span class="cod-badge__seal"><svg class="icon"><use href="#i-cash"/></svg></span>À Bamako : payez à la livraison</span></p>
 
@@ -392,7 +392,7 @@
         </details>
         <details>
           <summary>En combien de temps vais-je être livré&nbsp;? <svg class="icon"><use href="#i-plus"/></svg></summary>
-          <p>Après votre commande, nous vous appelons pour confirmer. À Bamako, la livraison se fait ensuite en général sous <span class="todo">24 h</span>. Ailleurs au Mali, nous vous indiquons le délai au téléphone.</p>
+          <p>Après votre commande, nous vous appelons pour confirmer. À Bamako, nous livrons le jour même&nbsp;; une commande passée après <span data-heure-limite>18&nbsp;h</span> est livrée le lendemain. Ailleurs au Mali, nous vous indiquons le délai au téléphone.</p>
         </details>
         <details>
           <summary>Comment se passe le paiement&nbsp;? <svg class="icon"><use href="#i-plus"/></svg></summary>
@@ -484,6 +484,7 @@
             <p class="form-error" role="alert"></p>
             <button class="btn btn--lg btn--block" type="submit">Envoyer ma commande</button>
             <p class="order__note"><svg class="icon"><use href="#i-shield"/></svg>À Bamako, vous payez à la réception. Ailleurs au Mali, par paiement mobile avant l'envoi.</p>
+            <p class="order__legal">En envoyant votre commande, vous acceptez nos <a href="conditions.html">conditions de vente</a> et notre <a href="confidentialite.html">politique de confidentialité</a>.</p>
           </form>
 
           <div class="order__success" id="order-success" hidden tabindex="-1">
@@ -542,7 +543,8 @@
   <div class="footer-bottom">
     <div class="container">
       <span>© <span data-annee>2026</span> Sana Shop</span>
-      <!-- À ajouter quand les pages existeront : Conditions de vente, Confidentialité -->
+      <a href="conditions.html">Conditions de vente</a>
+      <a href="confidentialite.html">Confidentialité</a>
     </div>
   </div>
 </footer>
