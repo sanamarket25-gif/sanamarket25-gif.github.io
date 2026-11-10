@@ -130,26 +130,50 @@ const CONFIG = {
   }
 
   /* ---------- 4. Choix de la couleur (synchronisé partout) ---------- */
-  function setColor(name) {
+  // Les photos des couleurs sont chargées une seule fois, puis le changement est immédiat.
+  const imgCache = {};
+  const preload = (src) => imgCache[src] || (imgCache[src] = new Promise((ok) => {
+    const im = new Image();
+    im.onload = im.onerror = () => ok();
+    im.src = src;
+  }));
+  const onProductPage = /produit\.html$/.test(location.pathname);
+  let currentColor = null;
+  function setColor(name, instant) {
     const swatch = $$('[data-color]').find((s) => s.dataset.color === name);
+    if (!swatch) return;
+    currentColor = name;
     $$('[data-color]').forEach((s) => s.setAttribute('aria-pressed', String(s.dataset.color === name)));
     $$('[data-color-label]').forEach((el) => { el.textContent = name; });
     $$('[data-color-select]').forEach((sel) => { if (sel.value !== name) sel.value = name; });
-    const src = swatch && swatch.dataset.img;
-    if (!src) return;
-    $$('[data-color-img]').forEach((img) => {
-      if (img.getAttribute('src') === src) return;
-      img.classList.add('is-swapping');
-      const done = () => img.classList.remove('is-swapping');
-      setTimeout(() => {
-        img.addEventListener('load', done, { once: true });
-        img.addEventListener('error', done, { once: true });
-        img.src = src;
-      }, 180);
+    // Page d'accueil : les liens vers la page d'achat gardent la couleur choisie
+    if (!onProductPage) {
+      $$('a[href^="produit.html"]').forEach((a) => {
+        const [path, hash] = a.getAttribute('href').split('#');
+        a.setAttribute('href', path.split('?')[0] + '?couleur=' + encodeURIComponent(name) + (hash ? '#' + hash : ''));
+      });
+    }
+    const src = swatch.dataset.img;
+    // L'ancienne photo reste affichée tant que la nouvelle n'est pas prête
+    preload(src).then(() => {
+      if (currentColor !== name) return;
+      $$('[data-color-img]').forEach((img) => {
+        if (img.getAttribute('src') === src) return;
+        if (instant) { img.src = src; return; }
+        img.classList.add('is-swapping');
+        setTimeout(() => { img.src = src; img.classList.remove('is-swapping'); }, 160);
+      });
     });
   }
   $$('[data-color]').forEach((s) => s.addEventListener('click', () => setColor(s.dataset.color)));
   $$('[data-color-select]').forEach((sel) => sel.addEventListener('change', () => setColor(sel.value)));
+  // Couleur choisie sur la page d'accueil (lien « produit.html?couleur=Rose »)
+  const couleurDemandee = new URLSearchParams(location.search).get('couleur');
+  if (couleurDemandee) setColor(couleurDemandee, true);
+  // Après l'affichage de la page, les autres couleurs se chargent en arrière-plan
+  window.addEventListener('load', () => setTimeout(() => {
+    $$('[data-color]').forEach((s) => { if (s.dataset.img) preload(s.dataset.img); });
+  }, 1500));
 
   /* ---------- 5. Galerie de photos (page produit) ---------- */
   $$('[data-gallery]').forEach((g) => {
@@ -362,7 +386,7 @@ const CONFIG = {
       } catch (err) {
         submitBtn.disabled = false;
         submitBtn.textContent = submitLabel;
-        errorBox.textContent = 'Problème de connexion : la commande n\'est pas partie. Vérifiez votre internet et réessayez, ou appelez-nous au ' + CONFIG.telephone + '.';
+        errorBox.textContent = 'Problème de connexion : la commande n\'est pas partie. Vérifiez votre connexion internet et réessayez, ou appelez-nous au ' + CONFIG.telephone + '.';
         errorBox.classList.add('is-visible');
         return;
       }
