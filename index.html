@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sana Shop — Sana Mix, le mixeur portable | Livraison partout au Mali</title>
+  <meta name="description" content="Sana Mix : mixeur portable sans fil de 380 ml, 6 lames en acier inoxydable, rechargeable par USB. Livraison partout au Mali, paiement à la livraison à Bamako.">
+  <meta name="theme-color" content="#373795">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--
+  =====================================================================
+  GUIDE RAPIDE — PAGE D'ACCUEIL
+  ---------------------------------------------------------------------
+  • IMAGES : toutes dans « images/ ». Pour changer une image, remplacez
+    le fichier par le vôtre avec exactement le même nom et la même extension.
+  • VIDÉOS : mettez vos vidéos dans « videos/ » (noms indiqués plus bas).
+  • PRIX, TÉLÉPHONE, DÉLAI DE LIVRAISON : à changer dans script.js (CONFIG).
+  • Les textes marqués « À REMPLACER » ou « À CONFIRMER » sont à vérifier.
+  =====================================================================
+-->
+
+<!-- Icônes du site (dessins simples réutilisés partout) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><circle cx="12" cy="12" r="5.6" fill="none" style="stroke:var(--logo-inner,#fff)" stroke-width="2.2"/><circle cx="12" cy="12" r="2" style="fill:var(--logo-inner,#fff)"/><circle cx="17.6" cy="6.4" r="1.3" style="fill:var(--logo-inner,#fff)"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="17" height="10" rx="2"/><path d="M22 11v2M11 9l-2 3h4l-2 3"/></symbol>
+  <symbol id="i-blade" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M12 10c-1-4 0-7 3-8 1 3 0 6-3 8zM14 12.5c4-.6 7 .7 7.6 3.8-3.1.6-6-.9-7.6-3.8zM10.2 13.4c-3 2.9-6.2 3.3-8.4 1.1 2.2-2.2 5.6-2.5 8.4-1.1z"/></symbol>
+  <symbol id="i-usb" viewBox="0 0 24 24"><path d="M12 21V5M12 5L9.5 8M12 5l2.5 3M12 16l5-3v-2.5M12 13L7 10V8"/><circle cx="12" cy="21" r="1"/><rect x="15.5" y="7.5" width="3" height="3"/><circle cx="7" cy="6.5" r="1.5"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24"><path d="M7 3h10l-1.2 18H8.2L7 3z"/><path d="M7.5 9h9"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6.5 7 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 10 12 3 12 3z"/></symbol>
+  <symbol id="i-dumbbell" viewBox="0 0 24 24"><path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/></symbol>
+  <symbol id="i-pocket" viewBox="0 0 24 24"><path d="M5 3h14v9a7 7 0 0 1-14 0V3z"/><path d="M9 3v6h6V3"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11zM13.5 10h4l3 3.2V16h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 9.5v.01M18 14.5v.01"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.2c2.6.4 4.5 2.7 4.5 5.8"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5L2 9z"/><path d="M6 11v5c3 2 9 2 12 0v-5M22 9v5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.3C1.2 8.4 3.3 5 6.8 5c2 0 3.6 1.2 5.2 3 1.6-1.8 3.2-3 5.2-3 3.5 0 5.6 3.4 4.3 6.7C19.5 16.4 12 21 12 21z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 19L4 20z"/></symbol>
+  <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.6 2.9 2.5 4.6 5.5 5"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.6-3.5h-3.1V7a1 1 0 0 1 1-1H15V3z"/></symbol>
+</svg>
+
+<!-- 1. Petite barre en haut (défile toute seule) -->
+<div class="topbar" role="region" aria-label="Informations">
+  <div class="marquee"><div class="marquee__track">
+    <span class="topbar__item"><svg class="icon"><use href="#i-truck"/></svg>Livraison partout au Mali</span>
+    <span class="topbar__item"><svg class="icon"><use href="#i-cash"/></svg>Paiement à la livraison à Bamako</span>
+    <span class="topbar__item"><svg class="icon"><use href="#i-star"/></svg>Promo de lancement : <span data-remise>-24&nbsp;%</span></span>
+    <span class="topbar__item"><svg class="icon"><use href="#i-headset"/></svg>Service client : <span data-tel>+223 77 48 13 20</span></span>
+  </div></div>
+</div>
+
+<!-- 2. En-tête -->
+<header class="site-header">
+  <div class="container header-inner">
+    <button class="icon-btn menu-toggle" type="button" data-menu-open aria-controls="drawer" aria-expanded="false" aria-label="Ouvrir le menu">
+      <svg class="icon"><use href="#i-menu"/></svg>
+    </button>
+
+    <!-- LOGO : à remplacer par votre logo si vous en avez un -->
+    <a class="logo" href="index.html" aria-label="Sana Shop, accueil">
+      <svg class="logo-mark" aria-hidden="true"><use href="#i-logo"/></svg>sana<small>shop</small>
+    </a>
+
+    <span class="header-divider" aria-hidden="true"></span>
+
+    <nav class="main-nav" aria-label="Menu principal">
+      <ul>
+        <li class="nav-item">
+          <a class="nav-link" href="produit.html">Le Sana Mix <svg class="icon" aria-hidden="true"><use href="#i-chev-d"/></svg></a>
+          <div class="mega">
+            <div class="container">
+              <div class="mega__grid">
+                <a class="mega__card" href="produit.html#raisons"><img src="images/produit-2.jpg" alt="" loading="lazy">Sans fil</a>
+                <a class="mega__card" href="produit.html#raisons"><img src="images/produit-3.jpg" alt="" loading="lazy">6 lames inox</a>
+                <a class="mega__card" href="produit.html#raisons"><img src="images/produit-4.jpg" alt="" loading="lazy">Recharge USB</a>
+                <a class="mega__card" href="produit.html#commande"><img src="images/pack-complet.jpg" alt="" loading="lazy">Les 4 couleurs</a>
+              </div>
+              <a class="mega__all" href="produit.html">Tout découvrir</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="produit.html#en-action">En action</a></li>
+        <li class="nav-item"><a class="nav-link" href="produit.html#pour-qui">Pour qui ?</a></li>
+        <li class="nav-item"><a class="nav-link" href="produit.html#faq">Questions</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-icons">
+      <a class="icon-btn" href="produit.html#commande" aria-label="Commander">
+        <svg class="icon"><use href="#i-bag"/></svg><span class="cart-dot" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Menu du téléphone -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__backdrop" data-menu-close></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__head">
+      <a class="logo" href="index.html"><svg class="logo-mark" aria-hidden="true"><use href="#i-logo"/></svg>sana<small>shop</small></a>
+      <button class="icon-btn" type="button" data-menu-close aria-label="Fermer le menu"><svg class="icon"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="drawer__tiles">
+      <a href="produit.html#raisons"><img src="images/produit-2.jpg" alt="" loading="lazy">Sans fil</a>
+      <a href="produit.html#raisons"><img src="images/produit-3.jpg" alt="" loading="lazy">6 lames inox</a>
+      <a href="produit.html#raisons"><img src="images/produit-4.jpg" alt="" loading="lazy">Recharge USB</a>
+      <a href="produit.html#commande"><img src="images/pack-complet.jpg" alt="" loading="lazy">Les 4 couleurs</a>
+    </div>
+    <nav class="drawer__links" aria-label="Menu">
+      <a href="produit.html">Le Sana Mix <svg class="icon"><use href="#i-chev-r"/></svg></a>
+      <a href="produit.html#en-action">En action <svg class="icon"><use href="#i-chev-r"/></svg></a>
+      <a href="produit.html#pour-qui">Pour qui ? <svg class="icon"><use href="#i-chev-r"/></svg></a>
+      <a href="produit.html#faq">Questions <svg class="icon"><use href="#i-chev-r"/></svg></a>
+      <a href="#contact">Contact <svg class="icon"><use href="#i-chev-r"/></svg></a>
+    </nav>
+    <a class="btn btn--block btn--lg" href="produit.html#commande">Commander – <span data-prix>9 500 FCFA</span></a>
+  </div>
+</div>
+
+<main>
+
+  <!-- 3. Grande vidéo d'accueil
+       VIDÉO : mettez votre vidéo dans « videos/accueil.mp4 »
+       (10 à 20 secondes, sans son, 480p ou 720p, moins de 3 Mo). -->
+  <section class="hero" data-cta-trigger aria-label="Présentation">
+    <video class="hero__video" data-slot src="videos/accueil.mp4" poster="images/accueil.jpg" autoplay muted loop playsinline preload="auto"></video>
+    <span class="media-hint">Vidéo à ajouter : videos/accueil.mp4</span>
+    <div class="hero__content reveal">
+      <h1><span>Votre jus frais</span> <span>partout avec vous</span></h1>
+      <a class="btn btn--light" href="produit.html#commande">Commander maintenant</a>
+    </div>
+  </section>
+
+  <!-- 4. Bande promo -->
+  <section class="sale-band" aria-label="Promotion">
+    <svg class="sale-band__deco sale-band__deco--sun" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="13" fill="#f7b538"/><path d="M32 4v8M32 52v8M4 32h8M52 32h8M12.2 12.2l5.6 5.6M46.2 46.2l5.6 5.6M12.2 51.8l5.6-5.6M46.2 17.8l5.6-5.6" stroke="#f7b538" stroke-width="4" stroke-linecap="round"/></svg>
+    <svg class="sale-band__deco sale-band__deco--star" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3l5.6 13.2 14.4 1.2-11 9.4 3.4 14L24 33.4 11.6 40.8l3.4-14-11-9.4 14.4-1.2z" fill="#f26b5b" stroke="#d94f40" stroke-width="2" stroke-linejoin="round"/></svg>
+    <p class="sale-band__title">PROMO PROMO PROMO</p>
+    <p class="sale-band__pill"><span data-remise>-24&nbsp;%</span> cette semaine</p>
+    <p class="sale-band__sub">Livraison partout au Mali <span>|</span> Paiement à la livraison à Bamako</p>
+    <svg class="sale-band__wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 26C180 6 360 46 540 30S900 4 1080 24s270 22 360 10V60H0z" fill="#22c3d0"/><path d="M0 40c200-18 380 16 560 2s380-24 560-6 240 12 320 4V60H0z" fill="#139cab" opacity=".45"/></svg>
+  </section>
+
+  <!-- 5. Bande de confiance qui défile.
+       Si un jour des médias ou des partenaires parlent de vous,
+       vous pourrez mettre leurs VRAIS logos ici. -->
+  <section class="trust" aria-label="Nos engagements">
+    <p class="eyebrow">Commandez en toute confiance</p>
+    <div class="marquee"><div class="marquee__track">
+      <span class="trust__item"><svg class="icon"><use href="#i-cash"/></svg>Paiement à la livraison à Bamako</span>
+      <span class="trust__item"><svg class="icon"><use href="#i-truck"/></svg>Livraison partout au Mali</span>
+      <span class="trust__item"><svg class="icon"><use href="#i-usb"/></svg>Rechargeable par USB</span>
+      <span class="trust__item"><svg class="icon"><use href="#i-clock"/></svg>Commande en 1 minute</span>
+      <span class="trust__item"><svg class="icon"><use href="#i-headset"/></svg>Service client à l'écoute</span>
+    </div></div>
+  </section>
+
+  <!-- 6. Présentation du produit -->
+  <section class="showcase" id="decouvrir" aria-labelledby="showcase-title">
+    <div class="container showcase__grid">
+      <div class="showcase__text reveal">
+        <h2 id="showcase-title">Sana Mix</h2>
+        <h3>Portable · Sans fil · 380 ml</h3>
+        <p>Le Sana Mix prépare vos jus et vos smoothies <b>sans prise et sans grosse machine</b>&nbsp;: ajoutez vos fruits, mixez, savourez. Compact et rechargeable par USB, il vous suit <b>partout où vous allez</b>.</p>
+        <a class="btn btn--light" href="produit.html">Découvrir</a>
+      </div>
+
+      <div class="showcase__media reveal">
+        <!-- IMAGES PAR COULEUR (PNG carré à fond transparent) :
+             images/couleur-bleu.png, couleur-rose.png, couleur-vert.png, couleur-pourpre.png -->
+        <img class="showcase__img" data-color-img src="images/couleur-bleu.png" alt="Le Sana Mix" width="600" height="600">
+        <div class="swatches" role="group" aria-label="Choisir une couleur">
+          <button class="swatch" type="button" data-color="Bleu" data-img="images/couleur-bleu.png" aria-pressed="true" aria-label="Bleu" style="--c:#41b4eb"><span></span></button>
+        <button class="swatch" type="button" data-color="Rose" data-img="images/couleur-rose.png" aria-pressed="false" aria-label="Rose" style="--c:#e8a4bf"><span></span></button>
+        <button class="swatch" type="button" data-color="Vert" data-img="images/couleur-vert.png" aria-pressed="false" aria-label="Vert" style="--c:#94e010"><span></span></button>
+        <button class="swatch" type="button" data-color="Pourpre" data-img="images/couleur-pourpre.png" aria-pressed="false" aria-label="Pourpre" style="--c:#bd93e6"><span></span></button>
+        </div>
+        <p class="swatch-label" data-color-label>Bleu</p>
+      </div>
+
+      <div class="glass-grid reveal">
+        <div class="glass"><svg class="icon"><use href="#i-battery"/></svg><h4>Sans fil</h4><p>Mixez sans prise</p></div>
+        <div class="glass"><svg class="icon"><use href="#i-blade"/></svg><h4>6 lames</h4><p>En acier inoxydable</p></div>
+        <div class="glass"><svg class="icon"><use href="#i-usb"/></svg><h4>Recharge USB</h4><p>Simple et pratique</p></div>
+        <div class="glass"><svg class="icon"><use href="#i-pocket"/></svg><h4>Compact</h4><p>Facile à emporter</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Mosaïque de cartes (sur téléphone : on glisse de gauche à droite) -->
+  <section class="section" aria-labelledby="usages-title">
+    <div class="container">
+      <h2 class="section-title reveal" id="usages-title">Un mixeur, mille envies</h2>
+      <div class="bento reveal">
+        <a class="tile tile--a" href="produit.html#raisons">
+          <img src="images/usage-4.jpg" alt="" loading="lazy">
+          <span class="tile__badge">Au quotidien</span>
+          <div class="tile__bar"><h4>Smoothies maison</h4><span class="btn btn--sm">Voir</span></div>
+        </a>
+        <a class="tile tile--b" href="produit.html#commande">
+          <img src="images/pack-complet.jpg" alt="" loading="lazy">
+          <div class="tile__bar"><h4>Les 4 couleurs</h4><span class="btn btn--sm">Commander</span></div>
+        </a>
+        <div class="tile tile--quote tile--q">
+          <p>Vos fruits. Votre jus. Où vous voulez.</p>
+          <span>Sana Mix</span>
+        </div>
+        <a class="tile tile--c" href="produit.html#raisons">
+          <img src="images/usage-2.jpg" alt="" loading="lazy">
+          <div class="tile__bar"><h4>En voyage</h4><span class="btn btn--sm">Voir</span></div>
+        </a>
+        <a class="tile tile--d" href="produit.html#pour-qui">
+          <img src="images/usage-3.jpg" alt="" loading="lazy">
+          <div class="tile__bar"><h4>Au bureau</h4><span class="btn btn--sm">Voir</span></div>
+        </a>
+        <div class="tile tile--quote tile--e">
+          <p>Sans fil. Sans prise. Sans complication.</p>
+          <span>Portable · Sans fil · 380 ml</span>
+        </div>
+        <a class="tile tile--f" href="produit.html#raisons">
+          <img src="images/usage-1.jpg" alt="" loading="lazy">
+          <div class="tile__bar"><h4>Après le sport</h4><span class="btn btn--sm">Voir</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Bande « commerçants »
+       Affichage réglé dans script.js : CONFIG.afficherGrossiste. -->
+  <section class="pro" data-bloc="gros" id="vente-en-gros" aria-labelledby="pro-title">
+    <div class="container pro__grid">
+      <div class="reveal">
+        <p class="eyebrow">Vente en gros</p>
+        <h2 id="pro-title">Vous êtes commerçant&nbsp;?</h2>
+        <p>Prix spéciaux pour les boutiques et les revendeurs. Appelez-nous pour connaître nos tarifs.</p>
+        <a class="btn btn--light btn--sm" data-tel-link href="tel:+22377481320">Nous appeler</a>
+      </div>
+      <img class="pro__img" src="images/grossiste.png" alt="" loading="lazy" width="600" height="600">
+    </div>
+  </section>
+
+  <!-- 9. Roue de mots -->
+  <section aria-labelledby="story-title">
+    <h2 class="section-title story-title reveal" id="story-title">Tous vos fruits</h2>
+    <div class="wheel-wrap">
+      <div class="wheel">
+        <p class="eyebrow">Choisissez. Mixez. Savourez.</p>
+        <div class="wheel__window" aria-hidden="true">
+          <ul class="wheel__list">
+            <li>Mangue</li><li>Papaye</li><li>Ananas</li><li>Banane</li><li>Pastèque</li><li>Goyave</li>
+            <li>Orange</li><li>Citron</li><li>Melon</li><li>Avocat</li><li>Smoothies</li><li>Jus frais</li>
+            <li>Mangue</li><li>Papaye</li><li>Ananas</li><li>Banane</li><li>Pastèque</li><li>Goyave</li>
+            <li>Orange</li><li>Citron</li><li>Melon</li><li>Avocat</li><li>Smoothies</li><li>Jus frais</li>
+          </ul>
+        </div>
+        <p class="sr-only">Mangue, papaye, ananas, banane, pastèque, goyave, orange, citron, melon, avocat, smoothies, jus frais.</p>
+        <h3>À vous de composer</h3>
+        <a class="btn btn--outline-light" href="produit.html#commande">Commander</a>
+      </div>
+      <div class="wheel-img"><img src="images/ambiance.jpg" alt="" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- 10. Réseaux sociaux — À REMPLACER : votre vrai nom de compte et vos liens -->
+  <section class="section social" data-bloc="reseaux" aria-labelledby="social-title">
+    <div class="container reveal">
+      <h2 id="social-title">@sanashop</h2>
+      <p class="eyebrow">Sur TikTok et Facebook</p>
+      <p>Idées de recettes, astuces et nouveautés.</p>
+      <p class="social__tag">#SanaMix</p>
+      <a class="btn btn--outline" data-lien="suivre" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-tiktok"/></svg>Nous suivre</a>
+    </div>
+  </section>
+
+  <!-- 11. Avis clients — section cachée (CONFIG.afficherAvis dans script.js).
+       Avant de l'afficher : mettez ici de VRAIS avis de vos clients (avec leur accord)
+       et supprimez les étiquettes « Exemple ». -->
+  <section class="section reviews" data-bloc="avis" aria-labelledby="reviews-title">
+    <div class="container">
+      <h2 class="eyebrow" id="reviews-title">Ce que disent nos clients</h2>
+      <div class="slider-q" data-quotes>
+        <button class="round-btn" type="button" data-prev aria-label="Avis précédent"><svg class="icon"><use href="#i-chev-l"/></svg></button>
+        <div class="quotes" aria-live="polite">
+          <blockquote class="quote is-active">
+            <span class="tag-example">Exemple</span>
+            <p>« Ici, l'avis d'un vrai client. »</p>
+            <cite>— Prénom, quartier</cite>
+          </blockquote>
+          <blockquote class="quote">
+            <span class="tag-example">Exemple</span>
+            <p>« Copiez ici un message reçu d'un client satisfait. »</p>
+            <cite>— Prénom, quartier</cite>
+          </blockquote>
+          <blockquote class="quote">
+            <span class="tag-example">Exemple</span>
+            <p>« Trois ou quatre avis courts suffisent. »</p>
+            <cite>— Prénom, quartier</cite>
+          </blockquote>
+        </div>
+        <button class="round-btn" type="button" data-next aria-label="Avis suivant"><svg class="icon"><use href="#i-chev-r"/></svg></button>
+      </div>
+      <div class="dots" data-dots></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 12. Pied de page — les liens se règlent dans script.js (CONFIG) -->
+<footer class="site-footer" id="contact">
+  <div class="container footer-top">
+    <svg class="footer-mark" aria-hidden="true"><use href="#i-logo"/></svg>
+    <p class="eyebrow">Avec <svg class="icon" aria-label="amour"><use href="#i-heart"/></svg> depuis Bamako</p>
+    <div class="socials">
+      <a href="#" data-lien="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="icon"><use href="#i-whatsapp"/></svg></a>
+      <a href="#" data-lien="tiktok" target="_blank" rel="noopener" aria-label="TikTok"><svg class="icon"><use href="#i-tiktok"/></svg></a>
+      <a href="#" data-lien="facebook" target="_blank" rel="noopener" aria-label="Facebook"><svg class="icon"><use href="#i-facebook"/></svg></a>
+    </div>
+  </div>
+  <div class="container footer-cols">
+    <div>
+      <h5>Le Sana Mix</h5>
+      <a href="produit.html">Découvrir</a>
+      <a href="produit.html#raisons">Pourquoi l'adopter</a>
+      <a href="produit.html#caracteristiques">Caractéristiques</a>
+      <a href="produit.html#commande">Commander</a>
+    </div>
+    <div>
+      <h5>Aide</h5>
+      <a href="produit.html#faq">Questions fréquentes</a>
+      <a href="produit.html#faq">Livraison</a>
+      <a href="produit.html#faq">Paiement</a>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <a data-tel href="tel:+22377481320">+223 77 48 13 20</a>
+      <a href="#" data-lien="whatsapp" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#" data-lien="tiktok" target="_blank" rel="noopener">TikTok</a>
+      <a href="#" data-lien="facebook" target="_blank" rel="noopener">Facebook</a>
+      <a href="#" data-lien="email">E-mail</a>
+    </div>
+    <div>
+      <h5>Sana Shop</h5>
+      <a href="index.html">Accueil</a>
+      <a data-bloc="gros" href="index.html#vente-en-gros">Vente en gros</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© <span data-annee>2026</span> Sana Shop</span>
+      <!-- À ajouter quand les pages existeront : Conditions de vente, Confidentialité -->
+    </div>
+  </div>
+</footer>
+
+<!-- Bouton « Commander » qui flotte en bas de l'écran (téléphone) -->
+<a class="btn btn--lg float-cta" href="produit.html#commande">Commander – <span data-prix>9 500 FCFA</span></a>
+
+<script src="script.js"></script>
+</body>
+</html>

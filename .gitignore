@@ -1,0 +1,11 @@
+# Dépôt public : seuls les fichiers du site sont envoyés sur GitHub.
+# Tout le reste (notes, outils, photos brutes, références) reste sur l'ordinateur.
+/*
+!/.gitignore
+!/.nojekyll
+!/index.html
+!/produit.html
+!/style.css
+!/script.js
+!/images/
+!/videos/
