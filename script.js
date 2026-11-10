@@ -22,7 +22,7 @@ const CONFIG = {
   delaiLivraisonJours: 1,    // « livré dès le … » = aujourd'hui + ce nombre de jours (À CONFIRMER)
   livraisonLeDimanche: false,
   // Lien de votre Google Sheets (Apps Script) — voir docs/google-sheets.md
-  urlGoogleSheets: '',
+  urlGoogleSheets: 'https://script.google.com/macros/s/AKfycby0gJxM8paRmvZkfY5L-q-MY_0h8BX25BCkqjZbHsXOIQhz7NKY7wA-Qam7vJGmz8QYkQ/exec',
 };
 
 (function () {
