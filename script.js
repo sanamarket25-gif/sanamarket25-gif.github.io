@@ -169,9 +169,11 @@ const CONFIG = {
     window.ttq.load(CONFIG.tiktokPixel);
     window.ttq.page();
   }
+  // Meta n'accepte pas le franc CFA (XOF) : les montants partent en euros, au taux fixe 1 € = 655,957 FCFA.
+  const enEuros = (fcfa) => Math.round((fcfa / 655.957) * 100) / 100;
   const donneesPixel = (quantite, valeur) => ({
-    meta: { content_name: CONFIG.nomProduit, content_type: 'product', content_ids: ['sana-mix-380'], num_items: quantite, value: valeur, currency: 'XOF' },
-    tiktok: { content_id: 'sana-mix-380', content_type: 'product', content_name: CONFIG.nomProduit, quantity: quantite, price: CONFIG.prix, value: valeur, currency: 'XOF' },
+    meta: { content_name: CONFIG.nomProduit, content_type: 'product', content_ids: ['sana-mix-380'], num_items: quantite, value: enEuros(valeur), currency: 'EUR' },
+    tiktok: { content_id: 'sana-mix-380', content_type: 'product', content_name: CONFIG.nomProduit, quantity: quantite, price: enEuros(CONFIG.prix), value: enEuros(valeur), currency: 'EUR' },
   });
   function suivre(evenementMeta, evenementsTiktok, d) {
     if (avecMeta && window.fbq) window.fbq('track', evenementMeta, d.meta);
