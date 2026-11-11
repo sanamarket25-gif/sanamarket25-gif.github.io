@@ -462,6 +462,7 @@ ul, ol { padding: 0; list-style: none; }
 .social .eyebrow { color: var(--ink-soft); margin: 8px 0 16px; font-size: 11px; }
 .social p { color: var(--ink-soft); }
 .social__tag { font-weight: 700; color: var(--ink) !important; margin: 4px 0 24px; }
+.social__liens { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 .social .btn { min-width: 230px; }
 .social .btn .icon { width: 18px; height: 18px; }
 

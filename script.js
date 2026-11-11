@@ -15,7 +15,7 @@ const CONFIG = {
   telephone: '+223 77 48 13 20', // numéro affiché sur tout le site
   whatsapp: '22377481320',   // numéro WhatsApp, chiffres seulement ('' = caché)
   tiktok: '',                // lien complet du compte TikTok ('' = caché)
-  facebook: '',              // lien complet de la page Facebook ('' = caché)
+  facebook: 'https://www.facebook.com/profile.php?id=61596615803735', // lien complet de la page Facebook ('' = caché)
   email: '',                 // adresse e-mail ('' = cachée)
   afficherAvis: false,       // true = montrer la section « avis clients »
   afficherGrossiste: false,  // true = montrer la section « vente en gros »
