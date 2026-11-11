@@ -25,7 +25,7 @@ const CONFIG = {
   // Lien de votre Google Sheets (Apps Script) — voir docs/google-sheets.md
   urlGoogleSheets: 'https://script.google.com/macros/s/AKfycby0gJxM8paRmvZkfY5L-q-MY_0h8BX25BCkqjZbHsXOIQhz7NKY7wA-Qam7vJGmz8QYkQ/exec',
   // Pixels publicitaires : collez le numéro (ID) donné par Meta et par TikTok ('' = désactivé)
-  metaPixel: '',
+  metaPixel: '1667162188451715', // Pixel Meta (jeu de données « Sana Shop »)
   tiktokPixel: '',
 };
 
